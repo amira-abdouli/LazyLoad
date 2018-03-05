@@ -21,7 +21,5 @@ namespace LazyLoad.Models
         public string  Description { get; set; }
 
     }
-
    
-
 }
