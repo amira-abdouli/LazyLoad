@@ -37,5 +37,9 @@ namespace LazyLoad.Models
         public System.Data.Entity.DbSet<LazyLoad.Models.Invoices> Invoices { get; set; }
 
         public System.Data.Entity.DbSet<LazyLoad.Models.InviceDetails> InviceDetails { get; set; }
+
+        public System.Data.Entity.DbSet<LazyLoad.Models.Employees> Employees { get; set; }
+
+        public System.Data.Entity.DbSet<LazyLoad.Models.Departments> Departments { get; set; }
     }
 }
