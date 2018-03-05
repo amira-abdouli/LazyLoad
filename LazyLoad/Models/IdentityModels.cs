@@ -20,11 +20,11 @@ namespace LazyLoad.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(bool lazyload=false)
+        public ApplicationDbContext(bool lazyload=true)
             : base("DefaultConnection", throwIfV1Schema: false)
         {
             if(!lazyload)
-            this.Configuration.LazyLoadingEnabled = true;
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public static ApplicationDbContext Create()
