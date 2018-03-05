@@ -5,7 +5,7 @@ using System.Security.AccessControl;
 using System.Web;
 
 namespace LazyLoad.Models
-{
+{  
     public class Employees
     {
         public int ID { get; set; }
@@ -19,7 +19,7 @@ namespace LazyLoad.Models
         public int ID { get; set; }
         public string DepartmentName { get; set; }
         public string  Description { get; set; }
-
+        public virtual Employees Employees { get; set; }
     }
    
 }
