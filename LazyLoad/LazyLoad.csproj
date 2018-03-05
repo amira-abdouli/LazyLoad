@@ -278,6 +278,7 @@
     <Content Include="Views\InviceDetails\Edit.cshtml" />
     <Content Include="Views\InviceDetails\Index.cshtml" />
     <Content Include="Views\Customers\InvoicesIndex.cshtml" />
+    <Content Include="Views\Invoices\InvoicesIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,4 +29,6 @@ namespace LazyLoad.Models
         public int InvoicesID { get; set; }
         public virtual Invoices Invoices { get; set; }
     }
+
+
 }

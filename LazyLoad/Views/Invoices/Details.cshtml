@@ -11,11 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Customers.Name)
+            @Html.DisplayNameFor(model => model.Customers)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Customers.Name)
+            @Html.DisplayFor(model => model.Customers)
         </dd>
 
     </dl>
@@ -24,4 +24,7 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
-@Html.Action("Index","InviceDetails",Model.InviceDetails)
+
+@*@Html.Action("Index","InviceDetails",Model.InviceDetails)*@
+
+@Html.Partial("InvoicesIndex", Model.InviceDetails)
