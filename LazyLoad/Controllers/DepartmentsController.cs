@@ -38,6 +38,7 @@ namespace LazyLoad.Controllers
         // GET: Departments/Create
         public ActionResult Create()
         {
+            ViewBag.EmployeeId = new SelectList(db.Employees, "ID", "Name", "Position");
             return View();
         }
 
@@ -70,6 +71,7 @@ namespace LazyLoad.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.EmployeeId = new SelectList(db.Employees, "ID", "Name", "Position", departments.EmployeeId);
             return View(departments);
         }
 
@@ -86,6 +88,7 @@ namespace LazyLoad.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.EmployeeId = new SelectList(db.Employees, "ID", "Name", "Position", departments.EmployeeId);
             return View(departments);
         }
 
