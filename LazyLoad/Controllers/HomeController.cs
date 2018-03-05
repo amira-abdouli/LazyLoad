@@ -13,9 +13,9 @@ namespace LazyLoad.Controllers
         public ActionResult Index()
         {
             var db1 = new ApplicationDbContext();
-            var db2 = new ApplicationDbContext(false);
+            //var db2 = new ApplicationDbContext(false);
             var customerr1 = db1.Customers.Find(1);
-            var customerr2 = db2.Customers.Find(1);
+            //var customerr2 = db2.Customers.Find(1);
             return View();
         }
 
