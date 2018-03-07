@@ -197,16 +197,10 @@
     <Compile Include="Controllers\InviceDetailsController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UserRoleGruopsController.cs" />
+    <Compile Include="Controllers\UserRolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803051050543_mira.cs" />
-    <Compile Include="Migrations\201803051050543_mira.Designer.cs">
-      <DependentUpon>201803051050543_mira.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803051217574_123.cs" />
-    <Compile Include="Migrations\201803051217574_123.Designer.cs">
-      <DependentUpon>201803051217574_123.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -214,6 +208,7 @@
     <Compile Include="Models\EmployeeModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\RoleModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -306,14 +301,18 @@
     <Content Include="Views\Departments\Details.cshtml" />
     <Content Include="Views\Departments\Edit.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803051050543_mira.resx">
-      <DependentUpon>201803051050543_mira.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803051217574_123.resx">
-      <DependentUpon>201803051217574_123.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Views\UserRoles\Create.cshtml" />
+    <Content Include="Views\UserRoles\Delete.cshtml" />
+    <Content Include="Views\UserRoles\Details.cshtml" />
+    <Content Include="Views\UserRoles\Edit.cshtml" />
+    <Content Include="Views\UserRoles\Index.cshtml" />
+    <Content Include="Views\UserRoleGruops\Create.cshtml" />
+    <Content Include="Views\UserRoleGruops\Delete.cshtml" />
+    <Content Include="Views\UserRoleGruops\Details.cshtml" />
+    <Content Include="Views\UserRoleGruops\Edit.cshtml" />
+    <Content Include="Views\UserRoleGruops\Index.cshtml" />
+    <Content Include="Views\UserRoleGruops\GroupRoles.cshtml" />
+    <Content Include="Views\UserRoleGruops\GroupRolesCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

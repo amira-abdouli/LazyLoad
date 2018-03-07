@@ -7,119 +7,111 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LazyLoad.Models;
-using Microsoft.AspNet.Identity;
 
 namespace LazyLoad.Controllers
 {
-    [Authorize(Roles = "Customer.read,admin")]
-    public class CustomersController : Controller
+    public class UserRolesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Customers
+        // GET: UserRoles
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.UserRoles.ToList());
         }
 
-        // GET: Customers/Details/5
-        public ActionResult Details(int? id)
+        // GET: UserRoles/Details/5
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
+            UserRole userRole = db.UserRoles.Find(id);
+            if (userRole == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View(userRole);
         }
 
-        // GET: Customers/Create
-        [Authorize(Roles = "Customer.add,admin")]
+        // GET: UserRoles/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Customers/Create
+        // POST: UserRoles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Customer.add,admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Customers customers)
+        public ActionResult Create([Bind(Include = "ID,Name")] UserRole userRole)
         {
             if (ModelState.IsValid)
             {
-                customers.UserID = User.Identity.GetUserId();
-                db.Customers.Add(customers);
+                userRole.ID = Guid.NewGuid();
+                db.UserRoles.Add(userRole);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(customers);
+            return View(userRole);
         }
 
-        // GET: Customers/Edit/5
-        [Authorize(Roles = "Customer.update,admin")]
-        public ActionResult Edit(int? id)
+        // GET: UserRoles/Edit/5
+        public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
+            UserRole userRole = db.UserRoles.Find(id);
+            if (userRole == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View(userRole);
         }
 
-        // POST: Customers/Edit/5
+        // POST: UserRoles/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Customer.update,admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Customers customers)
+        public ActionResult Edit([Bind(Include = "ID,Name")] UserRole userRole)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customers).State = EntityState.Modified;
+                db.Entry(userRole).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(customers);
+            return View(userRole);
         }
 
-        // GET: Customers/Delete/5
-        [Authorize(Roles = "Customer.delete,admin")]
-        public ActionResult Delete(int? id)
+        // GET: UserRoles/Delete/5
+        public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customers customers = db.Customers.Find(id);
-            if (customers == null)
+            UserRole userRole = db.UserRoles.Find(id);
+            if (userRole == null)
             {
                 return HttpNotFound();
             }
-            return View(customers);
+            return View(userRole);
         }
 
-        // POST: Customers/Delete/5
-        [Authorize(Roles = "Customer.delete,admin")]
+        // POST: UserRoles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
-            Customers customers = db.Customers.Find(id);
-            db.Customers.Remove(customers);
+            UserRole userRole = db.UserRoles.Find(id);
+            db.UserRoles.Remove(userRole);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
