@@ -52,5 +52,7 @@ namespace LazyLoad.Models
         public System.Data.Entity.DbSet<LazyLoad.Models.UserRoleGruop> UserRoleGruops { get; set; }
 
         public System.Data.Entity.DbSet<LazyLoad.Models.RoleJoinRoleGruop> RoleJoinRoleGruops { get; set; }
+        public System.Data.Entity.DbSet<LazyLoad.Models.RoleGruopJoinUsers> RoleGruopJoinUsers { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using LazyLoad.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace LazyLoad.Controllers
     {
         public ActionResult Index()
         {
+            var user = User.Identity.GetUserId();
             var db = new ApplicationDbContext();
             //var db2 = new ApplicationDbContext(false);
             //var customerr1 = db.Customers.Find(1);

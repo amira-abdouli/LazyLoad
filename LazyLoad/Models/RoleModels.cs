@@ -32,8 +32,8 @@ namespace LazyLoad.Models
     public class RoleGruopJoinUsers
     {
         [Key]
-        [Column(Order = 2)]
-        public Guid UserID { get; set; }
+        [Column(Order = 1)]
+        public string UserID { get; set; }
         public virtual ApplicationUser User { get; set; }
         [Key]
         [Column(Order = 2)]
