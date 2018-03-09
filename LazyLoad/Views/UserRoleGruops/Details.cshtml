@@ -29,3 +29,8 @@
 </p>
 
 @Html.Partial("GroupRoles", Model.RoleJoinRoleGruops)
+
+<p>
+    @Html.ActionLink("add user", "AddUserToGruop", new { id = Model.ID })
+</p>
+@Html.Action("RoleGruopJoinUsersList",new { id=Model.ID})

@@ -34,6 +34,27 @@ namespace LazyLoad.Controllers
             }
             return View(userRoleGruop);
         }
+        public ActionResult RoleGruopJoinUsersList(Guid id)
+        {
+            return PartialView(db.RoleGruopJoinUsers.Where(c => c.UserRoleGruopID == id).ToList());
+        }
+        public ActionResult AddUserToGruop(Guid id)
+        {
+            ViewBag.UserID = new SelectList(db.Users, "Id", "UserName");
+            return View(new RoleGruopJoinUsers() { UserRoleGruopID = id });
+        }
+        [HttpPost]
+        public ActionResult AddUserToGruop(RoleGruopJoinUsers model)
+        {
+            if(ModelState.IsValid)
+            {
+                db.RoleGruopJoinUsers.Add(model);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = model.UserRoleGruopID });
+            }
+            ViewBag.UserID = new SelectList(db.Users, "Id", "UserName");
+            return View(new RoleGruopJoinUsers() { UserRoleGruopID = model.UserRoleGruopID });
+        }
         public ActionResult GroupRoles()
         {
             return PartialView();

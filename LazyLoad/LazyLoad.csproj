@@ -314,6 +314,8 @@
     <Content Include="Views\UserRoleGruops\Index.cshtml" />
     <Content Include="Views\UserRoleGruops\GroupRoles.cshtml" />
     <Content Include="Views\UserRoleGruops\GroupRolesCreate.cshtml" />
+    <Content Include="Views\UserRoleGruops\RoleGruopJoinUsersList.cshtml" />
+    <Content Include="Views\UserRoleGruops\AddUserToGruop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
