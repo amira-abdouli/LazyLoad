@@ -6,18 +6,17 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using LazyLoad.Models;
+using BLL.Models;
 
 namespace LazyLoad.Controllers
 {
     public class EmployeesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Employees
         public ActionResult Index()
         {
-            return View(db.Employees.ToList());
+            return View(DataStore<Employees>.Get());
         }
 
         // GET: Employees/Details/5
@@ -27,7 +26,7 @@ namespace LazyLoad.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employees employees = db.Employees.Find(id);
+            Employees employees = DataStore<Employees>.Find(id);
             if (employees == null)
             {
                 return HttpNotFound();
@@ -50,8 +49,7 @@ namespace LazyLoad.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employees);
-                db.SaveChanges();
+                DataStore<Employees>.Add(employees);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +63,7 @@ namespace LazyLoad.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employees employees = db.Employees.Find(id);
+            Employees employees = DataStore<Employees>.Find(id);
             if (employees == null)
             {
                 return HttpNotFound();
@@ -82,8 +80,7 @@ namespace LazyLoad.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employees).State = EntityState.Modified;
-                db.SaveChanges();
+                DataStore<Employees>.Update(employees);
                 return RedirectToAction("Index");
             }
             return View(employees);
@@ -96,7 +93,7 @@ namespace LazyLoad.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employees employees = db.Employees.Find(id);
+            Employees employees = DataStore<Employees>.Find(id);
             if (employees == null)
             {
                 return HttpNotFound();
@@ -109,19 +106,8 @@ namespace LazyLoad.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employees employees = db.Employees.Find(id);
-            db.Employees.Remove(employees);
-            db.SaveChanges();
+            DataStore<Employees>.Delete(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

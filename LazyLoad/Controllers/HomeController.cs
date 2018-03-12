@@ -1,4 +1,4 @@
-﻿using LazyLoad.Models;
+﻿using BLL.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;

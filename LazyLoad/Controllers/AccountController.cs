@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using LazyLoad.Models;
+using BLL.Models;
 
 namespace LazyLoad.Controllers
 {
