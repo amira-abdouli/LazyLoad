@@ -16,7 +16,7 @@ namespace LazyLoad.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            return View(DataStore<Employees>.Get());
+            return View(DataStore<Employees>.Get(/*new List<Employees>().AsQueryable().Where(c=>c.Name=="aiman")*/));
         }
 
         // GET: Employees/Details/5
