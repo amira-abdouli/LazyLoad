@@ -11,25 +11,28 @@ namespace BLL.Models
 {
     public static class DataStore<T> where T: BaseTable
     {
-        //public static IEnumerable<T> Get(Expression<Func<T,bool>> query = null/*IQueryable<T> query=null*/)
-        //{
-        //    var time1 = DateTime.Now;
-        //    if (query == null)
-        //    {
-        //        var result = new DBcon<T>().Table.Where(c=>c.Deleted==false).ToList();
-        //        var time2 = DateTime.Now;
-        //        var totaltime = time2 - time1;
-        //        return result;
-        //    }
-        //    else
-        //    {
-        //        var stringquery = new DBcon<T>().Table.Where(query).ToList().Where(c => c.Deleted == false);
-        //        var result = new DBcon<T>().Database.SqlQuery<T>(stringquery);
-        //        var time2 = DateTime.Now;
-        //        var totaltime = time2 - time1;
-        //        return result;
-        //    }
-        //}
+        public static IEnumerable<T> Get(Expression<Func<T,bool>> expression=null/*IQueryable<T> query=null*/)
+        {
+            var time1 = DateTime.Now;
+            if (expression == null)
+            {
+                var result = new DBcon<T>().Table.Where(c=>c.Deleted==false).ToList();
+                var time2 = DateTime.Now;
+                var totaltime = time2 - time1;
+                return result;
+            }
+            else
+            {
+                
+                var resultquery= new DBcon<T>().Table.Where(expression).ToList().Where(c => c.Deleted == false);
+                //var res = query;
+                //var stringquery = query.Where(c => c.Deleted == false).ToList().ToString();
+                //var result = new DBcon<T>().Database.SqlQuery<T>(stringquery);
+                var time2 = DateTime.Now;
+                var totaltime = time2 - time1;
+                return resultquery;
+            }
+        }
         public static T Find(params object[] id)
         {
             var value = new DBcon<T>().Table.Find(id);
