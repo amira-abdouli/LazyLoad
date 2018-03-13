@@ -1,0 +1,218 @@
+﻿@model IList<BLL.Models.Employees>
+@{
+    ViewBag.Title = "Createrange";
+}
+
+
+
+<h2>Add Employees</h2>
+<div class="container" style="max-width:640px">
+   
+    <div class="details">
+        <h4>Add Range</h4>
+        <table width="100%">
+            <tr>
+                <td>Name</td>
+                <td>Position</td>
+       
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="name" />
+                    <span class="error">Name required</span>
+                </td>
+                <td>
+                    <input type="text" id="position" />
+                    <span class="error">Valid position required</span>
+                </td>
+             
+                <td>
+                    <input type="button" id="add" value="add" />
+                </td>
+            </tr>
+        </table>
+        <div id="items" class="tablecontainer">
+
+        </div>
+        <div style="padding:10px 0px; text-align:right">
+            <input id="submit" type="button" value="Save" style="padding:10px 20px" />
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+@section Scripts{
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            var items = [];
+            //Add button click function
+            $('#add').click(function () {
+                //Check validation of order item
+                var isValidItem = true;
+                if ($('#name').val().trim() == '') {
+                    isValidItem = false;
+                    $('#name').siblings('span.error').css('visibility', 'visible');
+                }
+                else {
+                    $('#name').siblings('span.error').css('visibility', 'hidden');
+                }
+
+                if ($('#position').val().trim() == '' ) {
+                    isValidItem = false;
+                    $('#position').siblings('span.error').css('visibility', 'visible');
+                }
+                else {
+                    $('#position').siblings('span.error').css('visibility', 'hidden');
+                }
+
+
+
+                //Add item to list if valid
+                if (isValidItem) {
+                    items.push({
+                        name: $('#name').val().trim(),
+                        position: $('#position').val().trim()
+
+
+                    });
+
+                    //Clear fields
+                    $('#name').val('').focus();
+                    $('#position').val('');
+
+                }
+                //populate order items
+                GeneratedItemsTable();
+
+            });
+            //Save button click function
+            $('#submit').click(function () {
+                //validation of order
+                var isAllValid = true;
+                if (items.length == 0) {
+                    $('#items').html('<span style="color:red;">Please add an employee</span>');
+                    isAllValid = false;
+                }
+                
+
+                //Save if valid
+                if (isAllValid) {
+                    var data = {
+
+                        data: items
+                    }
+
+                    $(this).val('Please wait...');
+
+                    $.ajax({
+                        url: '/Employees/Createrange',
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function (d) {
+                            //check is successfully save to database
+                            if (d.status == true) {
+                                //will send status from server side
+                                alert('Successfully done.');
+                                //clear form
+                                items = [];
+
+                                $('#items').empty();
+                            }
+                            else {
+                                alert('Failed');
+                            }
+                            $('#submit').val('Save');
+                        },
+                        error: function () {
+                            alert('Error');
+                            $('#submit').val('Save');
+                        }
+                    });
+                }
+
+            });
+            //function for show added items in table
+            function GeneratedItemsTable() {
+                if (items.length > 0) {
+                    var $table = $('<table/>');
+                    $table.append('<thead><tr><th>Name</th><th>Position</th><th></th></tr></thead>');
+                    var $tbody = $('<tbody/>');
+                    $.each(items, function (i, val) {
+                        var $row = $('<tr/>');
+                        $row.append($('<td/>').html(val.name));
+                        $row.append($('<td/>').html(val.position));
+
+                        var $remove = $('<a href="#">Remove</a>');
+                        $remove.click(function (e) {
+                            e.preventDefault();
+                            items.splice(i, 1);
+                            GeneratedItemsTable();
+                        });
+                        $row.append($('<td/>').html($remove));
+                        $tbody.append($row);
+                    });
+                    console.log("current", items);
+                    $table.append($tbody);
+                    $('#items').html($table);
+                }
+                else {
+                    $('#items').html('');
+                }
+            }
+        });
+
+    </script>
+}
+
+<style>
+    /*Adding some css for looks good*/
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+
+    /*css for table*/
+
+    .container td {
+        vertical-align: top;
+    }
+
+    .tablecontainer table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 1px solid #BFAEAE;
+        border-right: 1px solid #BFAEAE;
+    }
+
+    .tablecontainer th {
+        border-bottom: 2px solid #BFAEAE !important;
+    }
+
+    .tablecontainer th, .tablecontainer td {
+        text-align: left;
+        border-left: 1px solid #BFAEAE;
+        padding: 5px;
+        border-bottom: 1px solid #BFAEAE;
+    }
+
+    .ui-widget {
+        font-size: 12px !important;
+    }
+</style>

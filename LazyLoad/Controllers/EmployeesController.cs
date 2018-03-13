@@ -56,6 +56,72 @@ namespace LazyLoad.Controllers
             return View(employees);
         }
 
+        //amira
+        // GET: Employees/Create
+        public ActionResult Createrange()
+        {
+            return View();
+        }
+
+        public ActionResult Createrange1()
+        {
+            return View();
+        }
+        // POST: Employees/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+
+
+        [HttpPost]
+        public JsonResult Createrange(List<Employees> data)
+        {
+            bool status = false;
+            if (ModelState.IsValid)
+            {
+
+
+                if (ModelState.IsValid)
+                {
+                    DataStore<Employees>.AddRange(data);
+
+                }
+                status = true;
+            }
+
+            else
+            {
+                status = false;
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Createrange(/*[Bind(Include = "ID,Name,Position")] */List<Employees> employees)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        DataStore<Employees>.AddRange(employees);
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(employees);
+        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Createrange1(/*[Bind(Include = "ID,Name,Position")] */List<Employees> employees)
+        {
+            if (ModelState.IsValid)
+            {
+                DataStore<Employees>.AddRange(employees);
+                return RedirectToAction("Index");
+            }
+
+            return View(employees);
+        }
+
+
         // GET: Employees/Edit/5
         public ActionResult Edit(int? id)
         {
