@@ -36,6 +36,10 @@ namespace BLL.Models
         }
         public static int Add(T model)
         {
+            if(string.IsNullOrEmpty(model.UserID))
+            {
+                throw new Exception("UserID empty you must enter valid UserID");
+            }
             var db = new DBcon<T>();
             //model.ID = db.Table.Count() + 1;
             model.CreateDate = DateTime.Now;
@@ -49,8 +53,13 @@ namespace BLL.Models
             var db = new DBcon<T>();
             foreach (var table in tables)
             {
+                if (string.IsNullOrEmpty(table.UserID))
+                {
+                    throw new Exception("UserID empty you must enter valid UserID");
+                }
                 table.CreateDate = DateTime.Now;
                 table.UpdateDate = DateTime.Now;
+                table.UserID = "";
                 table.Deleted = false;
             }
             db.Table.AddRange(tables);
