@@ -23,11 +23,7 @@ namespace BLL.Models
             }
             else
             {
-                
                 var resultquery= new DBcon<T>().Table.Where(expression).ToList().Where(c => c.Deleted == false);
-                //var res = query;
-                //var stringquery = query.Where(c => c.Deleted == false).ToList().ToString();
-                //var result = new DBcon<T>().Database.SqlQuery<T>(stringquery);
                 var time2 = DateTime.Now;
                 var totaltime = time2 - time1;
                 return resultquery;
@@ -51,13 +47,14 @@ namespace BLL.Models
         public static int AddRange(List<T> tables)
         {
             var db = new DBcon<T>();
-          
             foreach (var table in tables)
             {
-                Add(table);
-             
+                table.CreateDate = DateTime.Now;
+                table.UpdateDate = DateTime.Now;
+                table.Deleted = false;
             }
-            return 0;
+            db.Table.AddRange(tables);
+            return db.SaveChanges();
         }
         public static int Update(T model)
         {
@@ -69,13 +66,9 @@ namespace BLL.Models
         public static int UpdateRange(IEnumerable<T> tables)
         {
             var db = new DBcon<T>();
-
             foreach (var table in tables)
             {
-
                 db.Entry(table).State = EntityState.Modified;
-                
-
             }
             return db.SaveChanges();
         }
@@ -90,12 +83,10 @@ namespace BLL.Models
         public static int DeleteRange(IEnumerable<T> ids)
         {
             var db = new DBcon<T>();
-
             foreach (var id in ids)
             {
                 var Table = db.Table.Find(id);
                 Table.Deleted = true;
-              
             }
             return db.SaveChanges();
         }
