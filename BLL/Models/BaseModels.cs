@@ -15,7 +15,7 @@ namespace BLL.Models
         string UserID { get; set; }
         ApplicationUser User { get; set; }
     }
-    public class BaseTable:IBaseTable
+    public class BaseTable
     {
         public int ID { get; set; }
         public bool Deleted { get; set; }

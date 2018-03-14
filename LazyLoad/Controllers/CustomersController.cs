@@ -11,7 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace LazyLoad.Controllers
 {
-    [Authorize(Roles = "Customer.read,admin")]
+    //[Authorize(Roles = "Customer.read,admin")]
     public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

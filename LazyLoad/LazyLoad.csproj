@@ -211,6 +211,7 @@
     <Content Include="App_Data\aspnet-LazyLoad-20180302030733_log.ldf">
       <DependentUpon>aspnet-LazyLoad-20180302030733.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\ErrorLog.txt" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

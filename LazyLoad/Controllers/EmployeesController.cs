@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BLL.Models;
+using Microsoft.AspNet.Identity;
 
 namespace LazyLoad.Controllers
 {
@@ -17,7 +18,7 @@ namespace LazyLoad.Controllers
         public ActionResult Index()
         {
             
-            return View(DataStore<Employees>.Get(c => c.Position == "admin"&&c.Name=="aiman"));/*new List<Employees>().AsQueryable().Where(c=>c.Name=="aiman"))*/
+            return View(DataStore<Employees>.Get());/*new List<Employees>().AsQueryable().Where(c=>c.Name=="aiman"))*/
             //return View(DataStore<Employees>.Get("Name=='aiman'"));
         }
 
@@ -51,6 +52,7 @@ namespace LazyLoad.Controllers
         {
             if (ModelState.IsValid)
             {
+                employees.UserID = User.Identity.GetUserId();
                 DataStore<Employees>.Add(employees);
                 return RedirectToAction("Index");
             }

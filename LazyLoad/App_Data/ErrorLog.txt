@@ -1,0 +1,5 @@
+DateTime: 3/14/2018 5:21:33 PM, code: 331432521317,Error: Test logger, User: , Thread: DataStore/Add, Exception: System.Exception: Test logger
+   at BLL.Models.DataStore`1.Get(Expression`1 expression) in C:\Users\aiman_0v3y6q5\source\repos\LazyLoad\BLL\Models\DataStore.cs:line 19
+DBerror: BLL.Models.DataStoreException: UserID Null
+   at BLL.Models.DataStore`1.Add(T model) in C:\Users\aiman_0v3y6q5\source\repos\LazyLoad\BLL\Models\DataStore.cs:line 52
+   at BLL.ExceptionHandler.GetLog(Exception ex, String UserID, String Thread, ExcptionType type, String AppDataPath) in C:\Users\aiman_0v3y6q5\source\repos\LazyLoad\BLL\ExceptionHandler.cs:line 30

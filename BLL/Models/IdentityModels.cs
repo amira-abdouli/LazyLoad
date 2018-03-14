@@ -53,6 +53,6 @@ namespace BLL.Models
 
         public System.Data.Entity.DbSet<Models.RoleJoinRoleGruop> RoleJoinRoleGruops { get; set; }
         public System.Data.Entity.DbSet<Models.RoleGruopJoinUsers> RoleGruopJoinUsers { get; set; }
-
+        public DbSet<Logger> Loggers { get; set; }
     }
 }
