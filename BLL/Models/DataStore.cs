@@ -85,10 +85,21 @@ namespace BLL.Models
         }
         public static int Update(T model)
         {
-            model.UpdateDate = DateTime.Now;
             var db = new DBcon<T>();
-            db.Entry(model).State = EntityState.Modified;
-            return db.SaveChanges();
+            var db2 = new DBcon<T>();
+            var data = db2.Table.Find(model.ID);
+            if (data != null && data.Deleted != true)
+            {
+                model.UpdateDate = DateTime.Now;
+                model.CreateDate = data.CreateDate;
+                model.UserID = data.UserID;
+                db.Entry(model).State = EntityState.Modified;
+                return db.SaveChanges();
+            }
+            else
+            {
+                throw new DataStoreException("We can't find the selected data to update");
+            }
         }
         public static int UpdateRange(IEnumerable<T> tables)
         {
