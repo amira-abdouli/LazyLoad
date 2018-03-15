@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,31 +12,31 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    public static class DataStore<T> where T: BaseTable
+    public static class DataStore<T> where T : BaseTable
     {
-        public static IEnumerable<T> Get(Expression<Func<T,bool>> expression=null/*IQueryable<T> query=null*/)
+        public static IEnumerable<T> Get(Expression<Func<T, bool>> expression = null/*IQueryable<T> query=null*/)
         {
             try
             {
-            var time1 = DateTime.Now;
-            if (expression == null)
-            {
-                var result = new DBcon<T>().Table.Where(c=>c.Deleted==false).ToList();
-                var time2 = DateTime.Now;
-                var totaltime = time2 - time1;
-                return result;
-            }
-            else
-            {
-                var resultquery= new DBcon<T>().Table.Where(expression).ToList().Where(c => c.Deleted == false);
-                var time2 = DateTime.Now;
-                var totaltime = time2 - time1;
-                return resultquery;
-            }
+                var time1 = DateTime.Now;
+                if (expression == null)
+                {
+                    var result = new DBcon<T>().Table.Where(c => c.Deleted == false).ToList();
+                    var time2 = DateTime.Now;
+                    var totaltime = time2 - time1;
+                    return result;
+                }
+                else
+                {
+                    var resultquery = new DBcon<T>().Table.Where(expression).ToList().Where(c => c.Deleted == false);
+                    var time2 = DateTime.Now;
+                    var totaltime = time2 - time1;
+                    return resultquery;
+                }
             }
             catch (Exception ex)
             {
-                ExceptionHandler.GetLog(ex, "e916a894-e3d1-4484-99de-4c92096b08e8", "DataStore/Get", LoggerModels.ExcptionType.UnknownError, @"C:\Users\aiman_0v3y6q5\source\repos\LazyLoad\LazyLoad\App_Data\");
+                ExceptionHandler.GetLog(ex, "e916a894-e3d1-4484-99de-4c92096b08e8", LoggerModels.ExcptionType.UnknownError);
                 return null;
             }
 
@@ -46,24 +48,22 @@ namespace BLL.Models
         }
         public static int Add(T model)
         {
-            if(string.IsNullOrEmpty(model.UserID) && typeof(T).Name!= "Logger")
+            if (string.IsNullOrEmpty(model.UserID) && typeof(T).Name != "Logger")
             {
                 throw new DataStoreException("UserID Null");
             }
             var db = new DBcon<T>();
-            //model.ID = db.Table.Count() + 1;
             model.CreateDate = DateTime.Now;
             model.UpdateDate = DateTime.Now;
             model.Deleted = false;
             db.Table.Add(model);
             try
             {
-                //throw new Exception("Test logger");
                 return db.SaveChanges();
             }
             catch (Exception ex)
             {
-                ExceptionHandler.GetLog(ex, model.UserID, "DataStore/Add", LoggerModels.ExcptionType.UnknownError, @"C:\Users\aiman_0v3y6q5\source\repos\LazyLoad\LazyLoad\App_Data\");
+                ExceptionHandler.GetLog(ex, model.UserID, LoggerModels.ExcptionType.UnknownError);
                 throw new DataStoreException("UnKnown exception please look at the InnerException", ex);
             }
         }
@@ -121,13 +121,13 @@ namespace BLL.Models
         {
             var db = new DBcon<T>();
             var db1 = new DBcon<T>();
-            var result = from tt in db.Table join ff in db1.Table on tt.ID equals ff.ID select new {tt.ID,tt.Deleted,ff.CreateDate };
+            var result = from tt in db.Table join ff in db1.Table on tt.ID equals ff.ID select new { tt.ID, tt.Deleted, ff.CreateDate };
             return result;
         }
     }
     public class DBcon<T> : IdentityDbContext<ApplicationUser> where T : class
     {
-        public DBcon(): base("DefaultConnection")
+        public DBcon() : base("DefaultConnection")
         { }
         public DbSet<T> Table { get; set; }
     }
