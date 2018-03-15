@@ -86,16 +86,13 @@
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="LoggerModels\ExcptionType.cs" />
     <Compile Include="LoggerModels\Logger.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseModels.cs" />
-    <Compile Include="Models\CustomerModels.cs" />
     <Compile Include="Models\DataStore.cs" />
     <Compile Include="Models\DataStoreException.cs" />
-    <Compile Include="Models\EmployeeModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RoleModels.cs" />
+    <Compile Include="Models\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -136,10 +136,17 @@ namespace BLL.Models
             return result;
         }
     }
-    public class DBcon<T> : IdentityDbContext<ApplicationUser> where T : class
+    public class DBcon<T> : IdentityDbContext<User> where T : class
     {
-        public DBcon() : base("DefaultConnection")
-        { }
+        public DBcon(bool lazyload = true)
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
+            if (!lazyload)
+                this.Configuration.LazyLoadingEnabled = false;
+        }
+
+        //public DBcon() : base("DefaultConnection")
+        //{ }
         public DbSet<T> Table { get; set; }
     }
 }

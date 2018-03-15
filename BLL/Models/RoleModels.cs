@@ -34,7 +34,7 @@ namespace BLL.Models
         [Key]
         [Column(Order = 1)]
         public string UserID { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual User User { get; set; }
         [Key]
         [Column(Order = 2)]
         public Guid UserRoleGruopID { get; set; }

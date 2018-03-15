@@ -13,7 +13,7 @@ namespace BLL.Models
         DateTime CreateDate { get; set; }
         DateTime UpdateDate { get; set; }
         string UserID { get; set; }
-        ApplicationUser User { get; set; }
+        User User { get; set; }
     }
     public class BaseTable
     {
@@ -22,6 +22,6 @@ namespace BLL.Models
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public string UserID { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual User User { get; set; }
     }
 }
