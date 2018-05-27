@@ -34,6 +34,7 @@ namespace LazyLoad.Controllers
             }
             return View(userRoleGruop);
         }
+
         public ActionResult RoleGruopJoinUsersList(Guid id)
         {
             return PartialView(db.RoleGruopJoinUsers.Where(c => c.UserRoleGruopID == id).ToList());

@@ -9,7 +9,7 @@ namespace LazyLoad.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(LazyLoad.Models.ApplicationDbContext context)

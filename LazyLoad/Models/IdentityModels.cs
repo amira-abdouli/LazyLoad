@@ -37,22 +37,23 @@ namespace LazyLoad.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.Customers> Customers { get; set; }
+        public DbSet<Customers> Customers { get; set; }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.Invoices> Invoices { get; set; }
+        public DbSet<Invoices> Invoices { get; set; }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.InviceDetails> InviceDetails { get; set; }
+        public DbSet<InviceDetails> InviceDetails { get; set; }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.Employees> Employees { get; set; }
+        public DbSet<Employees> Employees { get; set; }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.Departments> Departments { get; set; }
+        public DbSet<Departments> Departments { get; set; }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.UserRole> UserRoles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.UserRoleGruop> UserRoleGruops { get; set; }
+        public DbSet<UserRoleGruop> UserRoleGruops { get; set; }
 
-        public System.Data.Entity.DbSet<LazyLoad.Models.RoleJoinRoleGruop> RoleJoinRoleGruops { get; set; }
-        public System.Data.Entity.DbSet<LazyLoad.Models.RoleGruopJoinUsers> RoleGruopJoinUsers { get; set; }
+        public DbSet<RoleJoinRoleGruop> RoleJoinRoleGruops { get; set; }
+
+        public DbSet<RoleGruopJoinUsers> RoleGruopJoinUsers { get; set; }
 
     }
 }
