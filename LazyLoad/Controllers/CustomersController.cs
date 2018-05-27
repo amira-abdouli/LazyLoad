@@ -6,12 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BLL.Models;
 using LazyLoad.Models;
 using Microsoft.AspNet.Identity;
 
 namespace LazyLoad.Controllers
 {
-    [Authorize(Roles = "Customer.read,admin")]
+    //[Authorize(Roles = "Customer.read,admin")]
     public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

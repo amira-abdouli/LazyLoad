@@ -6,17 +6,15 @@ using System.Web;
 
 namespace LazyLoad.Models
 {  
-    public class Employees
+    public class Employees: BLL.Models.BaseTable
     {
-        public int ID { get; set; }
         public string Name { get; set; }
-        public string Position { get; set; }   
+        public string Position { get; set; }
         public virtual ICollection<Departments> Departments { get; set; }
     }
 
-    public class Departments
+    public class Departments: BLL.Models.BaseTable
     {
-        public int ID { get; set; }
         public int EmployeeId { get; set; }
         public string DepartmentName { get; set; }
         public string  Description { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace LazyLoad.Models
+namespace BLL.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

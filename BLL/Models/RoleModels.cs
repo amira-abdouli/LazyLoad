@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace LazyLoad.Models
+namespace BLL.Models
 {
     public class UserRole
     {
@@ -34,7 +34,7 @@ namespace LazyLoad.Models
         [Key]
         [Column(Order = 1)]
         public string UserID { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual User User { get; set; }
         [Key]
         [Column(Order = 2)]
         public Guid UserRoleGruopID { get; set; }

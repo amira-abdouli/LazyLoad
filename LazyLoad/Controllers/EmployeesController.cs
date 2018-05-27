@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
+﻿using BLL.Models;
 using LazyLoad.Models;
+using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
+using System.Net;
+using System.Web.Mvc;
 
 namespace LazyLoad.Controllers
 {
     public class EmployeesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Employees
         public ActionResult Index()
         {
-            return View(db.Employees.ToList());
+            
+            return View(DataStore<Employees>.Get());/*new List<Employees>().AsQueryable().Where(c=>c.Name=="aiman"))*/
+            //return View(DataStore<Employees>.Get("Name=='aiman'"));
         }
 
         // GET: Employees/Details/5
@@ -27,7 +25,7 @@ namespace LazyLoad.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employees employees = db.Employees.Find(id);
+            Employees employees = DataStore<Employees>.Find(id);
             if (employees == null)
             {
                 return HttpNotFound();
@@ -50,13 +48,79 @@ namespace LazyLoad.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employees);
-                db.SaveChanges();
+                employees.UserID = User.Identity.GetUserId();
+                DataStore<Employees>.Add(employees);
                 return RedirectToAction("Index");
             }
 
             return View(employees);
         }
+
+        //amira
+        // GET: Employees/Create
+        public ActionResult Createrange()
+        {
+            return View();
+        }
+
+        public ActionResult Createrange1()
+        {
+            return View();
+        }
+        // POST: Employees/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+
+
+        [HttpPost]
+        public JsonResult Createrange(List<Employees> data)
+        {
+            bool status = false;
+            if (ModelState.IsValid)
+            {
+
+
+                if (ModelState.IsValid)
+                {
+                    DataStore<Employees>.AddRange(data);
+
+                }
+                status = true;
+            }
+
+            else
+            {
+                status = false;
+            }
+            return new JsonResult { Data = new { status = status } };
+        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Createrange(/*[Bind(Include = "ID,Name,Position")] */List<Employees> employees)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        DataStore<Employees>.AddRange(employees);
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    return View(employees);
+        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Createrange1(/*[Bind(Include = "ID,Name,Position")] */List<Employees> employees)
+        {
+            if (ModelState.IsValid)
+            {
+                DataStore<Employees>.AddRange(employees);
+                return RedirectToAction("Index");
+            }
+
+            return View(employees);
+        }
+
 
         // GET: Employees/Edit/5
         public ActionResult Edit(int? id)
@@ -65,7 +129,7 @@ namespace LazyLoad.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employees employees = db.Employees.Find(id);
+            Employees employees = DataStore<Employees>.Find(id);
             if (employees == null)
             {
                 return HttpNotFound();
@@ -82,8 +146,7 @@ namespace LazyLoad.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employees).State = EntityState.Modified;
-                db.SaveChanges();
+                DataStore<Employees>.Update(employees);
                 return RedirectToAction("Index");
             }
             return View(employees);
@@ -96,7 +159,7 @@ namespace LazyLoad.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employees employees = db.Employees.Find(id);
+            Employees employees = DataStore<Employees>.Find(id);
             if (employees == null)
             {
                 return HttpNotFound();
@@ -109,19 +172,8 @@ namespace LazyLoad.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employees employees = db.Employees.Find(id);
-            db.Employees.Remove(employees);
-            db.SaveChanges();
+            DataStore<Employees>.Delete(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
